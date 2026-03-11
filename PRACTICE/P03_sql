@@ -1,0 +1,31 @@
+-- Active: 1773042111122@@127.0.0.1@3306@employeedb
+-- 부모 테이블 회원정보
+CREATE TABLE IF NOT EXISTS team_info
+(
+    team_code INT AUTO_INCREMENT PRIMARY KEY COMMENT '소속코드',  -- COMMENT : 이름을 붙임
+    team_name VARCHAR(100) NOT NULL COMMENT '소속명',
+    team_detail VARCHAR(500) COMMENT '소속상세정보',
+    use_yn CHAR(2) NOT NULL CHECK (use_yn IN ('Y', 'N')) DEFAULT 'Y'
+); COMMENT '소속정보'
+
+INSERT INTO team_info(team_name, team_detail, use_yn)
+VALUES ('이기자', '대한민국 대표 선수팀', DEFAULT);
+
+-- 자식 테이블
+CREATE TABLE IF NOT EXISTS member_info
+(
+    member_code INT AUTO_INCREMENT PRIMARY KEY,
+    member_name VARCHAR(100),
+    birth_date DATE DEFAULT (CURRENT_DATE),
+    division_code CHAR(2),
+    detail_info VARCHAR(500),
+    contact VARCHAR(50),
+    team_code INT,
+    activate_status CHAR(2) DEFAULT 'Y',                             -------check 
+    FOREIGN KEY(team_code) REFERENCES team_info (team_code)
+);
+
+-- 정상 수행
+-- 10, 20, 30과 같이 부모 테이블에 존재하는 행은 fk 컬럼에서 참조해서 사용 가능
+INSERT INTO member_info(member_name, birth_date, division_code, detail_info, contact, team_code, activate_status)
+VALUES (1, 'user01', 'pass01', '유관순', '여', '010-1234-5678','yoo123@gmail.com', 10);
