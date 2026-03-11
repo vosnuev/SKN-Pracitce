@@ -1,4 +1,4 @@
--- Active: 1773027509538@@127.0.0.1@3306
+-- Active: 1773027509538@@127.0.0.1@3306@menudb
 -- 테이블 삭제 (기존에 데이터가 있었으면 삭제하고 다시 읽기 위해서)
 DROP TABLE IF EXISTS tbl_payment_order CASCADE;
 DROP TABLE IF EXISTS tbl_payment CASCADE;
