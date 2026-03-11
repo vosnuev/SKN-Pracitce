@@ -45,21 +45,26 @@ DESCRIBE tb2;
 -- 컬럼 정의만 변경 (auto_increment가 제거됨)
 ALTER TABLE tb2 MODIFY pk INT;
 
+-- 3. DROP : 테이블(객체) 삭제
+DROP TABLE IF EXISTS tb1;
+
+DROP TABLE IF EXISTS tb1, tb2;
+
+-- 4. TRUNCATE
 CREATE TABLE IF NOT EXISTS tb2 (
-    pk INT AUTO_INCREMENT PRIMARY KEY, -- auto_increment 자동으로 숫자 부여
+    pk INT AUTO_INCREMENT PRIMARY KEY,
     fk INT,
     col VARCHAR(255),
     CHECK (col IN ('Y', 'N'))
 );
 
-INSERT INTO tb2 (fk, col) values (10, 'Y');
+INSERT INTO tb2 (fk, col) VALUES (10, 'Y');
 
-INSERT INTO tb2 (fk, col) values (20, 'N');
+INSERT INTO tb2 (fk, col) VALUES (20, 'N');
 
 SELECT * FROM tb2;
 
 -- 테이블의 구조는 남기지만 데이터 행은 모두 제거하고 싶을 경우
--- delete from table로 작성하는 것보다 효율적으로 truncate를 사용
--- drop + creat의 형태로 DDL이므로 암시적으로 commit이 일어나 rollback 불가
-
+-- delete from table 로 작성하는 것보다 효율적으로 truncate를 사용
+-- drop + create 의 형태로 DDL이므로 암시적 commit이 일어나 rollback 불가
 TRUNCATE tb2;
